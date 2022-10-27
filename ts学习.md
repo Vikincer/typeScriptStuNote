@@ -181,3 +181,6 @@ public update (dt: number) {
 }
 ```
 
+---
+
+[(18条消息) Cocos Creator 3.x 3D点击事件 - 射线检测_ls_qq_2670813470的博客-CSDN博客_cocos射线](https://blog.csdn.net/qq_14965517/article/details/117321146?ops_request_misc=&request_id=&biz_id=102&utm_term=creator3.x 3d对象事件&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-117321146.142^v62^js_top,201^v3^control_2,213^v1^t3_esquery_v1&spm=1018.2226.3001.4187)
