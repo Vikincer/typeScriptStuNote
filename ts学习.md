@@ -184,3 +184,57 @@ public update (dt: number) {
 ---
 
 [(18条消息) Cocos Creator 3.x 3D点击事件 - 射线检测_ls_qq_2670813470的博客-CSDN博客_cocos射线](https://blog.csdn.net/qq_14965517/article/details/117321146?ops_request_misc=&request_id=&biz_id=102&utm_term=creator3.x 3d对象事件&utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-0-117321146.142^v62^js_top,201^v3^control_2,213^v1^t3_esquery_v1&spm=1018.2226.3001.4187)
+
+```typescript
+import { _decorator, Component, Node,Color, EventMouse,Camera,geometry, input, Input,EventTouch,PhysicsSystem } from 'cc';
+const { ccclass, property } = _decorator;
+
+@ccclass('PlayerController')
+export class PlayerController extends Component {
+
+    @property({ type: Camera, tooltip: '主相机' })
+	public mainCamera: Camera | null = null;
+
+	@property({ type: Node, tooltip: '待触摸物体' })
+	public node_touch_1: Node | null = null;
+
+	private _ray: geometry.Ray = new geometry.Ray();
+
+
+    start() {
+        input.on(Input.EventType.MOUSE_DOWN, this.onTouchStart, this);
+    }
+
+    update(deltaTime: number) {
+        
+    }
+    onLoad(){
+        this.node.on(Node.EventType.MOUSE_DOWN,function(event){
+            console.log('鼠标点击');
+        },this);
+    }
+
+    onTouchStart(event: EventMouse) {
+        // 基于摄像机 画射线
+        //摄像机的位置 到 鼠标点击位置画一条射线
+		this.mainCamera?.screenPointToRay(event.getLocation().x, event.getLocation().y, this._ray); 
+		// 基于物理碰撞器的射线检测
+		// 当点击 node_touch_1 时，控制台打印 “node_touch_1”
+		if (PhysicsSystem.instance.raycast(this._ray)) {    //检测是否发生碰撞  BoxCollder组件
+			const r = PhysicsSystem.instance.raycastResults;        //碰撞的详情信息
+			for (let index = 0; index < r.length; index++) {    //此项目length为1
+				const element = r[index];   //PhysicsRayResult对象
+				console.log('当前点击： ' + element.collider.node.uuid);
+				if (element.collider.node.uuid == this.node_touch_1?.uuid) {
+					console.log('node_touch_1');
+				}
+			}
+		}
+	}
+}
+
+
+```
+
+---
+
